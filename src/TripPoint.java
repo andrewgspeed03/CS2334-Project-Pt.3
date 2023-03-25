@@ -135,11 +135,13 @@ public class TripPoint {
 	}
 
 	/**
-	 * 
-	 * @return
+	 * Finds amount of time spent stopped in hours
+	 * @return time spent stopped in hours
 	 */
 	public static double stoppedTime(){
+		double timeStop = h1StopDetection() * 5;
 
+		return timeStop;
 	}
 	
 	// finds the total distance traveled over the trip
