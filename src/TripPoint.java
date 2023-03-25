@@ -166,10 +166,20 @@ public class TripPoint {
 		fileScanner.close();
 	}
 
+	/**
+	 * Stops use the second heuristic with a stop radius of 0.6km to detect stops.
+	 * Intializes and fills movingTrip with all non-stop points
+	 * @return number of stops in trip ArrayList
+	 */
 	public static int h1StopDectection(){
 
 	}
 
+	/**
+	 * Stops use the second heuristic with a stop radius of 0.5km to detect stops.
+	 * Intializes and fills movingTrip with all non-stop points
+	 * @return number of stops in trip ArrayList
+	 */
 	public static int h2StopDectection(){
 
 	}
