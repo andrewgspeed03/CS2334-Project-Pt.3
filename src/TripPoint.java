@@ -1,3 +1,9 @@
+/**
+ * @author good0161
+ * @verison 3.0.1
+ * 
+ */
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -11,6 +17,7 @@ public class TripPoint {
 	private int time;	// time in minutes
 	
 	private static ArrayList<TripPoint> trip;	// ArrayList of every point in a trip
+	private static ArrayList<TripPoint> movingTrip;
 
 	// default constructor
 	public TripPoint() {
@@ -44,6 +51,10 @@ public class TripPoint {
 	// returns a copy of trip ArrayList
 	public static ArrayList<TripPoint> getTrip() {
 		return new ArrayList<>(trip);
+	}
+
+	public static ArrayList<TripPoint> getMovingTrip(){
+
 	}
 	
 	// uses the haversine formula for great sphere distance between two points
@@ -82,12 +93,24 @@ public class TripPoint {
 		
 		return kmpmin*60;
 	}
+
+	public static double avgMovingSpeed(){
+
+	}
 	
 	// returns the total time of trip in hours
 	public static double totalTime() {
 		int minutes = trip.get(trip.size()-1).getTime();
 		double hours = minutes / 60.0;
 		return hours;
+	}
+
+	public static double movingTime(){
+
+	}
+
+	public static double stoppedTime(){
+
 	}
 	
 	// finds the total distance traveled over the trip
@@ -141,6 +164,14 @@ public class TripPoint {
 
 		// close scanner
 		fileScanner.close();
+	}
+
+	public static int h1StopDectection(){
+
+	}
+
+	public static int h2StopDectection(){
+
 	}
 
 }
