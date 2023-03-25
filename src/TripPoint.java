@@ -133,7 +133,7 @@ public class TripPoint {
 	 * @return amount of time moving in hours
 	 */
 	public static double movingTime(){
-		int minutes = movingTrip.get(movingTrip.size()-1).getTime();
+		int minutes = movingTrip.size() * 5;
 		double hours = minutes / 60;
 		return hours;
 	}
@@ -143,9 +143,8 @@ public class TripPoint {
 	 * @return time spent stopped in hours
 	 */
 	public static double stoppedTime(){
-		double timeInMin = h1StopDetection() * 5;
+		double timeInMin = (trip.size() - movingTrip.size()) * 5;
 		double timeInHrs = timeInMin / 60;
-
 		return timeInHrs;
 	}
 	
@@ -227,7 +226,6 @@ public class TripPoint {
                 numStops++;
     	}
 
-
 		return numStops;
 	}
 
@@ -237,24 +235,54 @@ public class TripPoint {
 	 * @return number of stops in trip ArrayList
 	 */
 	public static int h2StopDetection(){
-		double dis;
+		boolean inStop;
 		int numStops = 0;
-		movingTrip = new ArrayList<TripPoint>();
+		double stopRad = 0.5;
+		double dis;
 
-		TripPoint a;
-		TripPoint b;
-
-		for(int i = 1; i < trip.size(); i++){
-			a = trip.get(i-1);
-			b = trip.get(i);
-			dis = haversineDistance(a, b);
-			if(dis > 0.5)
-				movingTrip.add(b);
-			else
-				numStops++;
-		}
+   		movingTrip = new ArrayList<>();
+		ArrayList<TripPoint> stopZone = new ArrayList<>();
+    	
+   		for (TripPoint a : trip) {
+			if(stopZone.isEmpty())
+				movingTrip.add(a);
+			else{
+				inStop = false;
+				for(TripPoint b : stopZone){
+					dis = haversineDistance(a, b);
+					if(dis <= stopRad){
+						inStop = true;
+						break;
+					}
+				}
+			
+				if(inStop)
+					stopZone.add(a);
+				else{
+					if(stopZone.size() >= 3)
+						numStops++;
+					else
+						movingTrip.addAll(stopZone);
+					stopZone.clear();
+					movingTrip.add(a);
+				}
+			}
+			if(stopZone.isEmpty())
+				for(TripPoint b: movingTrip){
+					dis = haversineDistance(a, b);
+					if(dis <= stopRad){
+						stopZone.add(a);
+						stopZone.add(b);
+						break;
+					}
+				}
+			}
+		if(stopZone.size() >= 3)
+			numStops++;
+		else
+			movingTrip.addAll(stopZone);
 
 		return numStops;
 	}
-
 }
+
