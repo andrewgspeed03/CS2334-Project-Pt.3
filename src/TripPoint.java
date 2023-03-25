@@ -110,7 +110,7 @@ public class TripPoint {
 		TripPoint a;
 		TripPoint b;
 
-		for(int i = 1; i < trip.size(); i++){
+		for(int i = 1; i < movingTrip.size(); i++){
 			a = movingTrip.get(i-1);
 			b = movingTrip.get(i);
 			totDis += haversineDistance(a, b);
