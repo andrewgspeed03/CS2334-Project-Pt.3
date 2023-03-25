@@ -197,7 +197,23 @@ public class TripPoint {
 	 * @return number of stops in trip ArrayList
 	 */
 	public static int h2StopDetection(){
+		double dis;
+		int numStops = 0;
 
+		TripPoint a;
+		TripPoint b;
+
+		for(int i = 1; i < trip.size(); i++){
+			a = trip.get(i-1);
+			b = trip.get(i);
+			dis = haversineDistance(a, b);
+			if(dis > 0.5)
+				movingTrip.add(b);
+			else
+				numStops++;
+		}
+
+		return numStops;
 	}
 
 }
