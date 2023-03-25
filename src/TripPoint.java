@@ -94,8 +94,27 @@ public class TripPoint {
 		return kmpmin*60;
 	}
 
+	/**
+	 * Finds the average speed over the course of the trip moving points in km/hr
+	 * @return average speed while moving in km/hr
+	 */
 	public static double avgMovingSpeed(){
+		double totDis = 0;
+		double timeInHrs = movingTime();
+		double kmphr;
 
+		TripPoint a;
+		TripPoint b;
+
+		for(int i = 1; i < trip.size(); i++){
+			a = movingTrip.get(i-1);
+			b = movingTrip.get(i);
+			totDis += haversineDistance(a, b);
+		}
+
+		kmphr = totDis / timeInHrs;
+
+		return kmphr;
 	}
 	
 	// returns the total time of trip in hours
@@ -115,6 +134,10 @@ public class TripPoint {
 		return hours;
 	}
 
+	/**
+	 * 
+	 * @return
+	 */
 	public static double stoppedTime(){
 
 	}
