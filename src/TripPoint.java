@@ -219,8 +219,10 @@ public class TripPoint {
         	a = trip.get(i-1);
 			b = trip.get(i);
             dis = haversineDistance(a, b);
+			if(i == 1)
+				movingTrip.add(a);
             if (dis > 0.6)  // Use 0.6 km as the distance threshold
-                movingTrip.add(a);
+                movingTrip.add(b);
 			else 
                 numStops++;
     	}

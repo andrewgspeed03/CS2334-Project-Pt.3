@@ -6,13 +6,14 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.ArrayList;
 
-import org.junit.BeforeClass;
+//import org.junit.BeforeClass;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 class TripPointTest {
 	
-	@BeforeClass
-	void setup() throws FileNotFoundException, IOException {
+	@BeforeAll
+	static void setup() throws FileNotFoundException, IOException {
 		TripPoint.readFile("triplog.csv");
 	}
 
