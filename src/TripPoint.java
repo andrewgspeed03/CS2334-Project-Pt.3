@@ -171,8 +171,24 @@ public class TripPoint {
 	 * Intializes and fills movingTrip with all non-stop points
 	 * @return number of stops in trip ArrayList
 	 */
-	public static int h1StopDectection(){
+	public static int h1StopDetection(){
+		double dis;
+		int numStops = 0;
 
+		TripPoint a;
+		TripPoint b;
+
+		for(int i = 1; i < trip.size(); i++){
+			a = trip.get(i-1);
+			b = trip.get(i);
+			dis = haversineDistance(a, b);
+			if(dis > 0.6)
+				movingTrip.add(b);
+			else
+				numStops++;
+		}
+
+		return numStops;
 	}
 
 	/**
@@ -180,7 +196,7 @@ public class TripPoint {
 	 * Intializes and fills movingTrip with all non-stop points
 	 * @return number of stops in trip ArrayList
 	 */
-	public static int h2StopDectection(){
+	public static int h2StopDetection(){
 
 	}
 
