@@ -54,7 +54,7 @@ public class TripPoint {
 	}
 
 	/**
-	 * gets a copy of the movingTrip ArrayList
+	 * returns a copy of the movingTrip ArrayList
 	 * @return	movingTrip ArrayList
 	 */
 	public static ArrayList<TripPoint> getMovingTrip(){
@@ -211,18 +211,20 @@ public class TripPoint {
 		double dis;
 		int numStops = 0;
 
-		TripPoint a;
+   		movingTrip = new ArrayList<TripPoint>();
+    	TripPoint a;
 		TripPoint b;
 
-		for(int i = 1; i < trip.size(); i++){
-			a = trip.get(i-1);
+   		for (int i = 1; i < trip.size(); i++) {
+        	a = trip.get(i-1);
 			b = trip.get(i);
-			dis = haversineDistance(a, b);
-			if(dis > 0.6)
-				movingTrip.add(b);
-			else
-				numStops++;
-		}
+            dis = haversineDistance(a, b);
+            if (dis > 0.6)  // Use 0.6 km as the distance threshold
+                movingTrip.add(a);
+			else 
+                numStops++;
+    	}
+
 
 		return numStops;
 	}
@@ -235,6 +237,7 @@ public class TripPoint {
 	public static int h2StopDetection(){
 		double dis;
 		int numStops = 0;
+		movingTrip = new ArrayList<TripPoint>();
 
 		TripPoint a;
 		TripPoint b;
