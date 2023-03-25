@@ -105,8 +105,14 @@ public class TripPoint {
 		return hours;
 	}
 
+	/**
+	 * Finds the amount of time moving in hours
+	 * @return amount of time moving in hours
+	 */
 	public static double movingTime(){
-
+		int minutes = movingTrip.get(movingTrip.size()-1).getTime();
+		double hours = minutes / 60;
+		return hours;
 	}
 
 	public static double stoppedTime(){
