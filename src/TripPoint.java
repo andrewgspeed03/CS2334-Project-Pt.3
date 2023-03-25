@@ -143,9 +143,10 @@ public class TripPoint {
 	 * @return time spent stopped in hours
 	 */
 	public static double stoppedTime(){
-		double timeStop = h1StopDetection() * 5;
+		double timeInMin = h1StopDetection() * 5;
+		double timeInHrs = timeInMin / 60;
 
-		return timeStop;
+		return timeInHrs;
 	}
 	
 	// finds the total distance traveled over the trip
