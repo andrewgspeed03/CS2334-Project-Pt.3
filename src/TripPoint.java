@@ -10,6 +10,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import javax.lang.model.util.ElementScanner14;
+
 public class TripPoint {
 
 	private double lat;	// latitude
@@ -230,7 +232,7 @@ public class TripPoint {
 	}
 
 	/**
-	 * Stops use the second heuristic with a stop radius of 0.5km to detect stops.
+	 * Counts which are points that are within 0.5km of another point in trip
 	 * Intializes and fills movingTrip with all non-stop points
 	 * @return number of stops in trip ArrayList
 	 */
@@ -243,9 +245,9 @@ public class TripPoint {
    		movingTrip = new ArrayList<>();
 		ArrayList<TripPoint> stopZone = new ArrayList<>();
     	
-   		for (TripPoint a : trip) {
+		for (TripPoint a : trip) {
 			if(stopZone.isEmpty())
-				movingTrip.add(a);
+				stopZone.add(a);
 			else{
 				inStop = false;
 				for(TripPoint b : stopZone){
@@ -255,16 +257,14 @@ public class TripPoint {
 						break;
 					}
 				}
-			
 				if(inStop)
 					stopZone.add(a);
 				else{
 					if(stopZone.size() >= 3)
-						numStops++;
+						numStops+= stopZone.size();
 					else
-						movingTrip.addAll(stopZone);
+						movingTrip.add(a);
 					stopZone.clear();
-					movingTrip.add(a);
 				}
 			}
 			if(stopZone.isEmpty())
@@ -272,17 +272,17 @@ public class TripPoint {
 					dis = haversineDistance(a, b);
 					if(dis <= stopRad){
 						stopZone.add(a);
-						stopZone.add(b);
 						break;
 					}
 				}
-			}
+		}
 		if(stopZone.size() >= 3)
-			numStops++;
+			numStops+= stopZone.size();
 		else
 			movingTrip.addAll(stopZone);
-
-		return numStops;
+		stopZone.clear();
+		
+		return numStops;	
 	}
 }
 
