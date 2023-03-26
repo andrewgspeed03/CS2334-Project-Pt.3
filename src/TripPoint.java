@@ -99,7 +99,7 @@ public class TripPoint {
 	}
 
 	/**
-	 * Finds the average speed over the course of the trip moving points in km/hr
+	 * Finds the average speed while moving in km/hr
 	 * @return average speed while moving in km/hr
 	 */
 	public static double avgMovingSpeed(){
@@ -305,7 +305,7 @@ public class TripPoint {
 					movingTrip.add(a);
 			}
 		}
-		
+
 		//Checks if the last stopZone is 3 or more points
 		if(stopZone.size() >= 3)
 			numStops+= stopZone.size();
