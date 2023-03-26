@@ -260,21 +260,32 @@ public class TripPoint {
 				if(inStop)
 					stopZone.add(a);
 				else{
-					if(stopZone.size() >= 3)
+					if(stopZone.size() >= 3){
 						numStops+= stopZone.size();
+						movingTrip.removeAll(stopZone);
+					}
 					else
-						movingTrip.add(a);
+						movingTrip.addAll(stopZone);
 					stopZone.clear();
+					movingTrip.add(a);
 				}
 			}
-			if(stopZone.isEmpty())
+			if(stopZone.isEmpty()){
+				inStop = false;
 				for(TripPoint b: movingTrip){
 					dis = haversineDistance(a, b);
 					if(dis <= stopRad){
-						stopZone.add(a);
+						inStop = true;
 						break;
 					}
 				}
+				if(inStop){
+					stopZone.add(a);
+					movingTrip.removeAll(stopZone);
+				}
+				else
+					movingTrip.add(a);
+			}
 		}
 		if(stopZone.size() >= 3)
 			numStops+= stopZone.size();
