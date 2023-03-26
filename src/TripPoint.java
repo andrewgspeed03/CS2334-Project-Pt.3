@@ -10,8 +10,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import javax.lang.model.util.ElementScanner14;
-
 public class TripPoint {
 
 	private double lat;	// latitude
@@ -233,7 +231,7 @@ public class TripPoint {
 
 	/**
 	 * Counts which are points that are within 0.5km of another point in trip
-	 * Intializes and fills movingTrip with all non-stop points
+	 * Intializes and fills movingTrip with all points not in one of these stop zones
 	 * @return number of stops in trip ArrayList
 	 */
 	public static int h2StopDetection(){
