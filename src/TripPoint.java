@@ -133,8 +133,8 @@ public class TripPoint {
 	 * @return amount of time moving in hours
 	 */
 	public static double movingTime(){
-		int minutes = movingTrip.size() * 5;
-		double hours = minutes / 60;
+		int minutes = (movingTrip.size()-1) * 5;
+		double hours = minutes / 60.0;
 		return hours;
 	}
 
