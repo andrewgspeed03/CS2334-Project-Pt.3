@@ -218,8 +218,12 @@ public class TripPoint {
         	a = trip.get(i-1);
 			b = trip.get(i);
             dis = haversineDistance(a, b);
+			//If a is the first point of trip it adds to movingTrip
 			if(i == 1)
 				movingTrip.add(a);
+			//If point a and b are not withing 0.6km of 
+			//eachother add b to movingTrip
+			//Otherwise, increment numStops
             if (dis > 0.6)  // Use 0.6 km as the distance threshold
                 movingTrip.add(b);
 			else 
@@ -237,17 +241,20 @@ public class TripPoint {
 	public static int h2StopDetection(){
 		boolean inStop;
 		int numStops = 0;
-		double stopRad = 0.5;
+		double stopRad = 0.5; // 0.5 km stop Radius
 		double dis;
 
    		movingTrip = new ArrayList<>();
 		ArrayList<TripPoint> stopZone = new ArrayList<>();
     	
+		//Loops through every point in trip
 		for (TripPoint a : trip) {
+			//If stopZone is empty, adds current point
 			if(stopZone.isEmpty())
-				stopZone.add(a);
+				stopZone.add(a); 
 			else{
 				inStop = false;
+				//Checks if current point is within stop zone
 				for(TripPoint b : stopZone){
 					dis = haversineDistance(a, b);
 					if(dis <= stopRad){
@@ -255,19 +262,23 @@ public class TripPoint {
 						break;
 					}
 				}
+				//If current point is within stop zone, add it to stop zone
+            	//Otherwise, if stopZone is 3 or more points add the size to numStops
+				//if not add all points in stopZone to movingTrip 
 				if(inStop)
 					stopZone.add(a);
 				else{
-					if(stopZone.size() >= 3){
+					if(stopZone.size() >= 3)
 						numStops+= stopZone.size();
-						movingTrip.removeAll(stopZone);
-					}
 					else
 						movingTrip.addAll(stopZone);
+					//clears stopZone and adds current point to movingTrip
 					stopZone.clear();
 					movingTrip.add(a);
 				}
 			}
+			//If stopZone is empty checks if current point is within stop zone
+			//of any point in movingTrip
 			if(stopZone.isEmpty()){
 				inStop = false;
 				for(TripPoint b: movingTrip){
@@ -277,6 +288,9 @@ public class TripPoint {
 						break;
 					}
 				}
+				//If current point is within moving trip, start new stop zone
+            	//with current point and remove all points in stopZone from movingTrip
+            	// Otherwise, add current point to movingTrip
 				if(inStop){
 					stopZone.add(a);
 					movingTrip.removeAll(stopZone);
@@ -285,6 +299,7 @@ public class TripPoint {
 					movingTrip.add(a);
 			}
 		}
+		//Checks if the last stopZone is 3 or more points
 		if(stopZone.size() >= 3)
 			numStops+= stopZone.size();
 		else
