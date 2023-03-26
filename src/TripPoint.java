@@ -202,7 +202,7 @@ public class TripPoint {
 	}
 
 	/**
-	 * Stops use the second heuristic with a stop radius of 0.6km to detect stops.
+	 * Stops use the first heuristic with a stop radius of 0.6km to detect stops.
 	 * Intializes and fills movingTrip with all non-stop points
 	 * @return number of stops in trip ArrayList
 	 */
